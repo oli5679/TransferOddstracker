@@ -1,5 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FF_Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
 from time import sleep
 import seaborn as sns
@@ -9,6 +12,7 @@ from datetime import datetime
 from IPython.display import clear_output
 import shutil
 import os
+import click
 
 sns.set_style("whitegrid")
 
@@ -32,8 +36,14 @@ class LinkScraper:
             except:
                 return np.nan
 
+    def _wait_for_element(self, id, pause_time=20):
+        WebDriverWait(self.driver, pause_time).until(
+            EC.presence_of_element_located((By.ID, id))
+        )
+
     def _parse_link(self, link):
         self.driver.get(link)
+        self._wait_for_element(id="t1")
         tables = pd.read_html(self.driver.page_source)
         # Odds table seems to be last table on page
         odds_df = tables[-1]
@@ -54,15 +64,9 @@ class LinkScraper:
     def _get_links(self):
         url = "https://www.oddschecker.com/football/football-specials"
         self.driver.get(url)
-        sleep(1)
-        # Sometimes there is annoying popup
-        try:
-            driver.find_element_by_xpath(
-                '//*[@id="promo-modal"]/div[1]/div/div/div[5]/a'
-            ).click()
-        except:
-            pass
-        sleep(1)
+
+        self._wait_for_element(id="outrights")
+
         # Find the transfer rumours
         markets = self.driver.find_element_by_xpath(
             '//*[@id="outrights"]/div/ul'
@@ -79,7 +83,6 @@ class LinkScraper:
                 clear_output()
                 print(f"{l} \n {i+1}/{len(self.transfer_links)} \n")
                 self._parse_link(l)
-                # Append to df
             return self.transfer_df
         except Exception as e:
             raise e
@@ -105,9 +108,7 @@ def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
 
 def plot_most_likely(df, n):
     most_likely = (
-        combined_df.loc[
-            ~combined_df.destination.str.contains("To Stay|To Leave|Any|Not to sign")
-        ]
+        df.loc[~df.destination.str.contains("To Stay|To Leave|Any|Not to sign")]
         .sort_values(by="probability", ascending=False)
         .head(n)
     )
@@ -150,11 +151,17 @@ def make_charts(df):
     plot_most_likely(df, 30)
 
 
-if __name__ == "__main__":
+@click.command()
+@click.option("--headless", default=True, help="Headless browser session or not?")
+def main(headless):
     print("started scraping links")
-    link_scrap = LinkScraper()
+    link_scrap = LinkScraper(headless=headless)
     combined_df = link_scrap.get_and_parse_all_links()
     print("started making charts")
     make_charts(combined_df)
     combined_df.to_csv(f"output/data/{datetime.now().date()}.csv")
     print("finished")
+
+
+if __name__ == "__main__":
+    main()
