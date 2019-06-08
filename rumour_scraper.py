@@ -18,9 +18,9 @@ sns.set_style("whitegrid")
 
 
 class LinkScraper:
-    def __init__(self, headless=True):
+    def __init__(self, headless):
         options = FF_Options()
-        if headless:
+        if headless == 'headless':
             options.add_argument("--headless")
         self.driver = webdriver.Firefox(options=options)
         self.transfer_df = pd.DataFrame()
@@ -64,9 +64,7 @@ class LinkScraper:
     def _get_links(self):
         url = "https://www.oddschecker.com/football/football-specials"
         self.driver.get(url)
-
         self._wait_for_element(id="outrights")
-
         # Find the transfer rumours
         markets = self.driver.find_element_by_xpath(
             '//*[@id="outrights"]/div/ul'
@@ -152,8 +150,8 @@ def make_charts(df):
 
 
 @click.command()
-@click.option("--headless", default=True, help="Headless browser session or not?")
-def main(headless):
+@click.option("--headless", default='headless', help="Headless browser session or not?")
+def main(headless):        
     print("started scraping links")
     link_scrap = LinkScraper(headless=headless)
     combined_df = link_scrap.get_and_parse_all_links()
