@@ -36,7 +36,7 @@ class LinkScraper:
             except:
                 return np.nan
 
-    def _wait_for_element(self, id, pause_time=20):
+    def _wait_for_element(self, id, pause_time=40):
         WebDriverWait(self.driver, pause_time).until(
             EC.presence_of_element_located((By.ID, id))
         )
@@ -52,7 +52,8 @@ class LinkScraper:
         # Transpose - clubs along axis
         clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
         # Calculate lowest odds - most likely
-        long_df = pd.DataFrame(clean_df.applymap(self._parse_odds).min()).reset_index()
+        long_df = pd.DataFrame(clean_df.applymap(
+            self._parse_odds).min()).reset_index()
         # Add in column names, including player name
         long_df.columns = ["destination", "odds"]
         long_df["player"] = link.split("/")[-2].replace("-", " ").title()
@@ -69,7 +70,8 @@ class LinkScraper:
         markets = self.driver.find_element_by_xpath(
             '//*[@id="outrights"]/div/ul'
         ).find_elements_by_tag_name("li")
-        links = [m.find_element_by_tag_name("a").get_attribute("href") for m in markets]
+        links = [m.find_element_by_tag_name(
+            "a").get_attribute("href") for m in markets]
         self.transfer_links = [
             l for l in links if "club-after-summer-transfer-window" in l
         ]
@@ -106,13 +108,16 @@ def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
 
 def plot_most_likely(df, n):
     most_likely = (
-        df.loc[~df.destination.str.contains("To Stay|To Leave|Any|Not to sign")]
+        df.loc[~df.destination.str.contains(
+            "To Stay|To Leave|Any|Not to sign")]
         .sort_values(by="probability", ascending=False)
         .head(n)
     )
-    most_likely["transfer"] = most_likely.player + " - " + most_likely["destination"]
+    most_likely["transfer"] = most_likely.player + \
+        " - " + most_likely["destination"]
     plt.subplots(figsize=(20, 15))
-    ax = sns.barplot(data=most_likely, y="transfer", x="probability", orient="h")
+    ax = sns.barplot(data=most_likely, y="transfer",
+                     x="probability", orient="h")
     ax.set_title(f"{n} most likely Transfers \n", {"fontsize": 20})
     plt.savefig(f"output/{n} most likely overall.png")
 
@@ -151,7 +156,7 @@ def make_charts(df):
 
 @click.command()
 @click.option("--headless", default='headless', help="Headless browser session or not?")
-def main(headless):        
+def main(headless):
     print("started scraping links")
     link_scrap = LinkScraper(headless=headless)
     combined_df = link_scrap.get_and_parse_all_links()
