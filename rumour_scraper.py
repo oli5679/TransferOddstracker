@@ -36,45 +36,50 @@ class LinkScraper:
             except:
                 return np.nan
 
-    def _wait_for_element(self, id, pause_time=40):
+    def _wait_for_element(self, id, pause_time=60):
         WebDriverWait(self.driver, pause_time).until(
             EC.presence_of_element_located((By.ID, id))
         )
 
     def _parse_link(self, link):
         self.driver.get(link)
-        self._wait_for_element(id="t1")
-        tables = pd.read_html(self.driver.page_source)
-        # Odds table seems to be last table on page
-        odds_df = tables[-1]
-        # Remove crazy long column names
-        odds_df.columns = [""] * len(odds_df.columns)
-        # Transpose - clubs along axis
-        clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
-        # Calculate lowest odds - most likely
-        long_df = pd.DataFrame(clean_df.applymap(
-            self._parse_odds).min()).reset_index()
-        # Add in column names, including player name
-        long_df.columns = ["destination", "odds"]
-        long_df["player"] = link.split("/")[-2].replace("-", " ").title()
-        # add probability and date
-        long_df["probability"] = 1 / (1 + long_df["odds"])
-        long_df["date"] = datetime.now().date()
-        self.transfer_df = self.transfer_df.append(long_df, sort=False)
+        try:
+            self._wait_for_element(id="t1")
+            tables = pd.read_html(self.driver.page_source)
+            # Odds table seems to be last table on page
+            odds_df = tables[-1]
+            # Remove crazy long column names
+            odds_df.columns = [""] * len(odds_df.columns)
+            # Transpose - clubs along axis
+            clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
+            # Calculate lowest odds - most likely
+            long_df = pd.DataFrame(clean_df.applymap(
+                self._parse_odds).min()).reset_index()
+            # Add in column names, including player name
+            long_df.columns = ["destination", "odds"]
+            long_df["player"] = link.split("/")[-2].replace("-", " ").title()
+            # add probability and date
+            long_df["probability"] = 1 / (1 + long_df["odds"])
+            long_df["date"] = datetime.now().date()
+            self.transfer_df = self.transfer_df.append(long_df, sort=False)
+        except Exception:
+            print('parsing failed')
+            print(Exception)
 
     def _get_links(self):
-        url = "https://www.oddschecker.com/football/football-specials"
+        url = "https://www.oddschecker.com/football/player-specials"
         self.driver.get(url)
         self._wait_for_element(id="outrights")
         # Find the transfer rumours
         markets = self.driver.find_element_by_xpath(
-            '//*[@id="outrights"]/div/ul'
+            '//*[@id="outrights"]/div/ul[2]'
         ).find_elements_by_tag_name("li")
         links = [m.find_element_by_tag_name(
             "a").get_attribute("href") for m in markets]
         self.transfer_links = [
             l for l in links if "club-after-summer-transfer-window" in l
         ]
+        assert len(self.transfer_links) > 0
 
     def get_and_parse_all_links(self):
         try:
