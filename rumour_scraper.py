@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options as FF_Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
@@ -13,16 +14,18 @@ from IPython.display import clear_output
 import shutil
 import os
 import click
-
-sns.set_style("whitegrid")
+import logging
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
 
 class LinkScraper:
     def __init__(self, headless):
         options = FF_Options()
+
         if headless == 'headless':
             options.add_argument("--headless")
-        self.driver = webdriver.Firefox(options=options)
+        self.driver = webdriver.Firefox(
+            options=options)
         self.transfer_df = pd.DataFrame()
 
     def _parse_odds(self, odds_val):
@@ -62,9 +65,9 @@ class LinkScraper:
             long_df["probability"] = 1 / (1 + long_df["odds"])
             long_df["date"] = datetime.now().date()
             self.transfer_df = self.transfer_df.append(long_df, sort=False)
-        except Exception:
-            print('parsing failed')
-            print(Exception)
+        except Exception as e:
+            logging.info('parsing failed')
+            logging.info(e)
 
     def _get_links(self):
         url = "https://www.oddschecker.com/football/player-specials"
@@ -86,7 +89,7 @@ class LinkScraper:
             self._get_links()
             for i, l in enumerate(self.transfer_links):
                 clear_output()
-                print(f"{l} \n {i+1}/{len(self.transfer_links)} \n")
+                logging.info(f"{l} \n {i+1}/{len(self.transfer_links)} \n")
                 self._parse_link(l)
             return self.transfer_df
         except Exception as e:
@@ -131,9 +134,9 @@ def make_charts(df):
     try:
         shutil.rmtree("output/players")
         shutil.rmtree("output/destinations")
-        print("previous output removed")
+        logging.info("previous output removed")
     except FileNotFoundError:
-        print("no previous output directories")
+        logging.info("no previous output directories")
     os.mkdir("output/players")
     os.mkdir("output/destinations")
     for dest in df.loc[
@@ -159,17 +162,22 @@ def make_charts(df):
     plot_most_likely(df, 30)
 
 
-@click.command()
-@click.option("--headless", default='headless', help="Headless browser session or not?")
-def main(headless):
-    print("started scraping links")
+def main(headless, log_mode):
+    if log_mode == 'file':
+        logging.basicConfig(filename='app.log', filemode='w',
+                            format='%(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+    else:
+        logging.basicConfig(level=logging.INFO)
+    sns.set_style("whitegrid")
+
+    logging.info("started scraping links")
     link_scrap = LinkScraper(headless=headless)
     combined_df = link_scrap.get_and_parse_all_links()
-    print("started making charts")
+    logging.info("started making charts")
     make_charts(combined_df)
     combined_df.to_csv(f"output/data/{datetime.now().date()}.csv")
-    print("finished")
+    logging.info("finished")
 
 
 if __name__ == "__main__":
-    main()
+    main(headless=False, log_mode='print')
