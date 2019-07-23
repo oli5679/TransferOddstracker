@@ -140,7 +140,8 @@ def make_charts(df):
     os.mkdir("output/players")
     os.mkdir("output/destinations")
     for dest in df.loc[
-        ~df.destination.str.contains("To Stay|To Leave|Any"), "destination"
+        ~df.destination.str.contains(
+            "To Stay|To Leave|Any|Not to sign"), "destination"
     ].unique():
         make_bar_chart(
             df=df,
