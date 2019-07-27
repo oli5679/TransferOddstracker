@@ -16,6 +16,8 @@ import os
 import click
 import logging
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from retry import retry
+from timeout_decorator import timeout, TimeoutError
 
 
 class LinkScraper:
@@ -44,31 +46,30 @@ class LinkScraper:
             EC.presence_of_element_located((By.ID, id))
         )
 
+    @retry(TimeoutError, tries=3)
+    @timeout(10)
     def _parse_link(self, link):
-        try:
-            self.driver.get(link)
-            sleep(1)
-            self._wait_for_element(id="t1")
-            tables = pd.read_html(self.driver.page_source)
-            # Odds table seems to be last table on page
-            odds_df = tables[-1]
-            # Remove crazy long column names
-            odds_df.columns = [""] * len(odds_df.columns)
-            # Transpose - clubs along axis
-            clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
-            # Calculate lowest odds - most likely
-            long_df = pd.DataFrame(clean_df.applymap(
-                self._parse_odds).min()).reset_index()
-            # Add in column names, including player name
-            long_df.columns = ["destination", "odds"]
-            long_df["player"] = link.split("/")[-2].replace("-", " ").title()
-            # add probability and date
-            long_df["probability"] = 1 / (1 + long_df["odds"])
-            long_df["date"] = datetime.now().date()
-            self.transfer_df = self.transfer_df.append(long_df, sort=False)
-        except Exception as e:
-            logging.info('parsing failed')
-            logging.info(e)
+        self.driver.get(link)
+        sleep(1)
+
+        self._wait_for_element(id="t1")
+        tables = pd.read_html(self.driver.page_source)
+        # Odds table seems to be last table on page
+        odds_df = tables[-1]
+        # Remove crazy long column names
+        odds_df.columns = [""] * len(odds_df.columns)
+        # Transpose - clubs along axis
+        clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
+        # Calculate lowest odds - most likely
+        long_df = pd.DataFrame(clean_df.applymap(
+            self._parse_odds).min()).reset_index()
+        # Add in column names, including player name
+        long_df.columns = ["destination", "odds"]
+        long_df["player"] = link.split("/")[-2].replace("-", " ").title()
+        # add probability and date
+        long_df["probability"] = 1 / (1 + long_df["odds"])
+        long_df["date"] = datetime.now().date()
+        self.transfer_df = self.transfer_df.append(long_df, sort=False)
 
     def _get_links(self):
         url = "https://www.oddschecker.com/football/player-specials"
@@ -91,7 +92,12 @@ class LinkScraper:
             for i, l in enumerate(self.transfer_links):
                 clear_output()
                 logging.info(f"{l} \n {i+1}/{len(self.transfer_links)} \n")
-                self._parse_link(l)
+                try:
+                    self._parse_link(l)
+                except Exception as e:
+                    logging.info('parsing failed')
+                    logging.info(e)
+
             return self.transfer_df
         except Exception as e:
             raise e
