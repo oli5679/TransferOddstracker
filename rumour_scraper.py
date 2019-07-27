@@ -45,8 +45,9 @@ class LinkScraper:
         )
 
     def _parse_link(self, link):
-        self.driver.get(link)
         try:
+            self.driver.get(link)
+            sleep(1)
             self._wait_for_element(id="t1")
             tables = pd.read_html(self.driver.page_source)
             # Odds table seems to be last table on page
