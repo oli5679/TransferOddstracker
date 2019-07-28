@@ -47,7 +47,7 @@ class LinkScraper:
         )
 
     @retry(TimeoutError, tries=3)
-    @timeout(10)
+    @timeout(30)
     def _parse_link(self, link):
         self.driver.get(link)
         sleep(1)
