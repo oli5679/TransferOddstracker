@@ -77,7 +77,7 @@ class LinkScraper:
         self._wait_for_element(id="outrights")
         # Find the transfer rumours
         markets = self.driver.find_element_by_xpath(
-            '//*[@id="outrights"]/div/ul[2]'
+            '/html/body/div[1]/div[2]/div/div/div/div/div/div[1]/section[2]/div/div/ul[4]'
         ).find_elements_by_tag_name("li")
         links = [m.find_element_by_tag_name(
             "a").get_attribute("href") for m in markets]
