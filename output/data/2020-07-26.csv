@@ -1,0 +1,338 @@
+,destination,odds,player,probability,date
+0,Barcelona,2.0,Neymar,0.3333333333333333,2020-07-26
+1,Real Madrid,7.0,Neymar,0.125,2020-07-26
+2,Any South American Club,16.0,Neymar,0.058823529411764705,2020-07-26
+3,Any MLS Club,16.0,Neymar,0.058823529411764705,2020-07-26
+4,Juventus,14.0,Neymar,0.06666666666666667,2020-07-26
+5,Liverpool,20.0,Neymar,0.047619047619047616,2020-07-26
+6,Inter Milan,25.0,Neymar,0.038461538461538464,2020-07-26
+7,AC Milan,25.0,Neymar,0.038461538461538464,2020-07-26
+8,Man City,11.0,Neymar,0.08333333333333333,2020-07-26
+9,Man Utd,16.0,Neymar,0.058823529411764705,2020-07-26
+10,Bayern Munich,14.0,Neymar,0.06666666666666667,2020-07-26
+11,Chelsea,20.0,Neymar,0.047619047619047616,2020-07-26
+12,Tottenham,33.0,Neymar,0.029411764705882353,2020-07-26
+13,Arsenal,33.0,Neymar,0.029411764705882353,2020-07-26
+14,Newcastle,20.0,Neymar,0.047619047619047616,2020-07-26
+0,Man Utd,0.55,Alexis Sanchez,0.6451612903225806,2020-07-26
+1,Inter Milan,0.36363636363636365,Alexis Sanchez,0.7333333333333333,2020-07-26
+2,Any MLS Club,2.5,Alexis Sanchez,0.2857142857142857,2020-07-26
+3,Any Chinese Club,4.0,Alexis Sanchez,0.2,2020-07-26
+4,Any French Club,8.0,Alexis Sanchez,0.1111111111111111,2020-07-26
+5,Any Italian Club,8.0,Alexis Sanchez,0.1111111111111111,2020-07-26
+6,Tottenham,7.0,Alexis Sanchez,0.125,2020-07-26
+7,Newcastle,16.0,Alexis Sanchez,0.058823529411764705,2020-07-26
+8,Borussia Dortmund,12.0,Alexis Sanchez,0.07692307692307693,2020-07-26
+9,Everton,16.0,Alexis Sanchez,0.058823529411764705,2020-07-26
+10,Bayern Munich,14.0,Alexis Sanchez,0.06666666666666667,2020-07-26
+11,Bayer Leverkusen,18.0,Alexis Sanchez,0.05263157894736842,2020-07-26
+12,West Ham,4.0,Alexis Sanchez,0.2,2020-07-26
+13,Valencia,22.0,Alexis Sanchez,0.043478260869565216,2020-07-26
+14,Real Madrid,25.0,Alexis Sanchez,0.038461538461538464,2020-07-26
+15,Sevilla,9.0,Alexis Sanchez,0.1,2020-07-26
+16,Liverpool,100.0,Alexis Sanchez,0.009900990099009901,2020-07-26
+0,Man Utd,0.7,Jack Grealish,0.5882352941176471,2020-07-26
+1,Aston Villa,1.25,Jack Grealish,0.4444444444444444,2020-07-26
+2,Leicetser,4.0,Jack Grealish,0.2,2020-07-26
+3,Man City,5.0,Jack Grealish,0.16666666666666666,2020-07-26
+4,Arsenal,3.3333333333333335,Jack Grealish,0.23076923076923073,2020-07-26
+5,RB Leipzig,9.0,Jack Grealish,0.1,2020-07-26
+6,Tottenham,3.5,Jack Grealish,0.2222222222222222,2020-07-26
+7,Chelsea,7.0,Jack Grealish,0.125,2020-07-26
+8,Liverpool,25.0,Jack Grealish,0.038461538461538464,2020-07-26
+9,Leicester,25.0,Jack Grealish,0.038461538461538464,2020-07-26
+10,Everton,33.0,Jack Grealish,0.029411764705882353,2020-07-26
+0,Man Utd,0.3333333333333333,Jadon Sancho,0.75,2020-07-26
+1,Liverpool,6.0,Jadon Sancho,0.14285714285714285,2020-07-26
+2,Chelsea,4.0,Jadon Sancho,0.2,2020-07-26
+3,Real Madrid,13.0,Jadon Sancho,0.07142857142857142,2020-07-26
+4,Barcelona,13.0,Jadon Sancho,0.07142857142857142,2020-07-26
+5,Bayern Munich,20.0,Jadon Sancho,0.047619047619047616,2020-07-26
+6,Tottenham,16.0,Jadon Sancho,0.058823529411764705,2020-07-26
+7,Juventus,14.0,Jadon Sancho,0.06666666666666667,2020-07-26
+8,AC Milan,33.0,Jadon Sancho,0.029411764705882353,2020-07-26
+9,Newcastle,33.0,Jadon Sancho,0.029411764705882353,2020-07-26
+10,Inter Milan,33.0,Jadon Sancho,0.029411764705882353,2020-07-26
+11,Arsenal,20.0,Jadon Sancho,0.047619047619047616,2020-07-26
+0,Manchester City,0.16666666666666666,Nathan Ake,0.8571428571428571,2020-07-26
+1,Manchester United,12.0,Nathan Ake,0.07692307692307693,2020-07-26
+2,Chelsea,12.0,Nathan Ake,0.07692307692307693,2020-07-26
+3,Liverpool,18.0,Nathan Ake,0.05263157894736842,2020-07-26
+4,Arsenal,20.0,Nathan Ake,0.047619047619047616,2020-07-26
+5,Tottenham,25.0,Nathan Ake,0.038461538461538464,2020-07-26
+0,Not to sign or agree a contract with any other club,0.6666666666666666,Harry Kane,0.6000000000000001,2020-07-26
+1,Man Utd,1.5,Harry Kane,0.4,2020-07-26
+2,Real Madrid,5.0,Harry Kane,0.16666666666666666,2020-07-26
+3,Man City,4.0,Harry Kane,0.2,2020-07-26
+4,Barcelona,10.0,Harry Kane,0.09090909090909091,2020-07-26
+5,Bayern Munich,12.0,Harry Kane,0.07692307692307693,2020-07-26
+6,PSG,9.0,Harry Kane,0.1,2020-07-26
+7,Liverpool,16.0,Harry Kane,0.058823529411764705,2020-07-26
+8,Juventus,4.0,Harry Kane,0.2,2020-07-26
+0,Juventus,4.0,Lionel Messi,0.2,2020-07-26
+1,Man City,2.25,Lionel Messi,0.3076923076923077,2020-07-26
+2,PSG,7.5,Lionel Messi,0.11764705882352941,2020-07-26
+3,Man Utd,20.0,Lionel Messi,0.047619047619047616,2020-07-26
+4,Liverpool,20.0,Lionel Messi,0.047619047619047616,2020-07-26
+5,Bayern Munich,6.0,Lionel Messi,0.14285714285714285,2020-07-26
+6,Real Madrid,100.0,Lionel Messi,0.009900990099009901,2020-07-26
+0,Man Utd,0.1,Paul Pogba,0.9090909090909091,2020-07-26
+1,Real Madrid,7.0,Paul Pogba,0.125,2020-07-26
+2,Juventus,9.0,Paul Pogba,0.1,2020-07-26
+3,PSG,11.0,Paul Pogba,0.08333333333333333,2020-07-26
+4,Barcelona,16.0,Paul Pogba,0.058823529411764705,2020-07-26
+5,Inter Milan,16.0,Paul Pogba,0.058823529411764705,2020-07-26
+0,FC Barcelona,0.4,Arturo Vidal,0.7142857142857143,2020-07-26
+1,Inter,1.8,Arturo Vidal,0.35714285714285715,2020-07-26
+2,AC Milan,4.0,Arturo Vidal,0.2,2020-07-26
+3,Napoli,6.0,Arturo Vidal,0.14285714285714285,2020-07-26
+4,Atletico Madrid,6.0,Arturo Vidal,0.14285714285714285,2020-07-26
+5,Any other MLS team,9.0,Arturo Vidal,0.1,2020-07-26
+0,Arsenal,4.0,Odsonne Edouard,0.2,2020-07-26
+1,Man Utd,6.0,Odsonne Edouard,0.14285714285714285,2020-07-26
+2,Crystal Palace,6.0,Odsonne Edouard,0.14285714285714285,2020-07-26
+3,Any Italian club,8.0,Odsonne Edouard,0.1111111111111111,2020-07-26
+4,Any Spanish club,8.0,Odsonne Edouard,0.1111111111111111,2020-07-26
+5,Any French club,8.0,Odsonne Edouard,0.1111111111111111,2020-07-26
+6,Any German club,8.0,Odsonne Edouard,0.1111111111111111,2020-07-26
+7,Everton,10.0,Odsonne Edouard,0.09090909090909091,2020-07-26
+8,Leicester,12.0,Odsonne Edouard,0.07692307692307693,2020-07-26
+9,Newcastle,12.0,Odsonne Edouard,0.07692307692307693,2020-07-26
+10,Wolves,12.0,Odsonne Edouard,0.07692307692307693,2020-07-26
+11,West Ham,14.0,Odsonne Edouard,0.06666666666666667,2020-07-26
+12,Southampton,16.0,Odsonne Edouard,0.058823529411764705,2020-07-26
+0,PSG,3.5,Philippe Coutinho,0.2222222222222222,2020-07-26
+1,Arsenal,0.3333333333333333,Philippe Coutinho,0.75,2020-07-26
+2,Liverpool,3.5,Philippe Coutinho,0.2222222222222222,2020-07-26
+3,Newcastle United,2.0,Philippe Coutinho,0.3333333333333333,2020-07-26
+4,Any Italian club,12.0,Philippe Coutinho,0.07692307692307693,2020-07-26
+5,Tottenham,5.0,Philippe Coutinho,0.16666666666666666,2020-07-26
+6,Inter Milan,14.0,Philippe Coutinho,0.06666666666666667,2020-07-26
+7,Leicester,14.0,Philippe Coutinho,0.06666666666666667,2020-07-26
+8,Juventus,14.0,Philippe Coutinho,0.06666666666666667,2020-07-26
+9,Chelsea,2.3,Philippe Coutinho,0.30303030303030304,2020-07-26
+10,Any German club,16.0,Philippe Coutinho,0.058823529411764705,2020-07-26
+11,Man Utd,8.0,Philippe Coutinho,0.1111111111111111,2020-07-26
+12,Man City,14.0,Philippe Coutinho,0.06666666666666667,2020-07-26
+13,Real Madrid,50.0,Philippe Coutinho,0.0196078431372549,2020-07-26
+14,Bayern Munich,66.0,Philippe Coutinho,0.014925373134328358,2020-07-26
+0,Inter Miami,2.0,Cristiano Ronaldo,0.3333333333333333,2020-07-26
+1,PSG,3.5,Cristiano Ronaldo,0.2222222222222222,2020-07-26
+2,Any English Club,4.0,Cristiano Ronaldo,0.2,2020-07-26
+3,Real Madrid,7.5,Cristiano Ronaldo,0.11764705882352941,2020-07-26
+4,Any MLS Club,8.0,Cristiano Ronaldo,0.1111111111111111,2020-07-26
+5,Bayern Munich,9.0,Cristiano Ronaldo,0.1,2020-07-26
+6,Any French Club,12.0,Cristiano Ronaldo,0.07692307692307693,2020-07-26
+7,Man Utd,12.0,Cristiano Ronaldo,0.07692307692307693,2020-07-26
+8,Any Chinese Club,8.0,Cristiano Ronaldo,0.1111111111111111,2020-07-26
+9,Any German Club,14.0,Cristiano Ronaldo,0.06666666666666667,2020-07-26
+10,Any Spanish Club,14.0,Cristiano Ronaldo,0.06666666666666667,2020-07-26
+11,Any South American Club,16.0,Cristiano Ronaldo,0.058823529411764705,2020-07-26
+12,Sporting,18.0,Cristiano Ronaldo,0.05263157894736842,2020-07-26
+0,Chelsea,0.125,Kai Havertz,0.8888888888888888,2020-07-26
+1,Not to sign or agree a contract with any other club,4.0,Kai Havertz,0.2,2020-07-26
+2,Bayern Munich,7.5,Kai Havertz,0.11764705882352941,2020-07-26
+3,Liverpool,19.0,Kai Havertz,0.05,2020-07-26
+4,Real Madrid,22.0,Kai Havertz,0.043478260869565216,2020-07-26
+5,Juventus,25.0,Kai Havertz,0.038461538461538464,2020-07-26
+6,Barcelona,25.0,Kai Havertz,0.038461538461538464,2020-07-26
+7,Borussia Dortmund,35.0,Kai Havertz,0.027777777777777776,2020-07-26
+8,PSG,35.0,Kai Havertz,0.027777777777777776,2020-07-26
+9,Manchester City,40.0,Kai Havertz,0.024390243902439025,2020-07-26
+10,Manchester United,40.0,Kai Havertz,0.024390243902439025,2020-07-26
+11,Arsenal,66.0,Kai Havertz,0.014925373134328358,2020-07-26
+0,Man Utd,5.0,Matthijs De Ligt,0.16666666666666666,2020-07-26
+1,Barcelona,8.0,Matthijs De Ligt,0.1111111111111111,2020-07-26
+2,Bayern Munich,12.0,Matthijs De Ligt,0.07692307692307693,2020-07-26
+3,Chelsea,14.0,Matthijs De Ligt,0.06666666666666667,2020-07-26
+4,PSG,22.0,Matthijs De Ligt,0.043478260869565216,2020-07-26
+5,Real Madrid,33.0,Matthijs De Ligt,0.029411764705882353,2020-07-26
+6,Arsenal,50.0,Matthijs De Ligt,0.0196078431372549,2020-07-26
+0,Chelsea,3.0,Said Benrahma,0.25,2020-07-26
+1,West Ham,6.0,Said Benrahma,0.14285714285714285,2020-07-26
+2,Arsenal,6.0,Said Benrahma,0.14285714285714285,2020-07-26
+3,Leeds,8.0,Said Benrahma,0.1111111111111111,2020-07-26
+4,Aston Villa,9.0,Said Benrahma,0.1,2020-07-26
+5,Tottenham,12.0,Said Benrahma,0.07692307692307693,2020-07-26
+6,Sheffield Utd,16.0,Said Benrahma,0.058823529411764705,2020-07-26
+0,Roma,1.5,Jan Vertonghen,0.4,2020-07-26
+1,Inter,3.0,Jan Vertonghen,0.25,2020-07-26
+2,Napoli,7.0,Jan Vertonghen,0.125,2020-07-26
+3,AC Milan,9.0,Jan Vertonghen,0.1,2020-07-26
+4,Ajax,9.0,Jan Vertonghen,0.1,2020-07-26
+0,Arsenal,0.36363636363636365,Thomas Partey,0.7333333333333333,2020-07-26
+1,Man Utd,7.5,Thomas Partey,0.11764705882352941,2020-07-26
+2,Chelsea,10.0,Thomas Partey,0.09090909090909091,2020-07-26
+0,Real Madrid,3.5,Kylian Mbappe,0.2222222222222222,2020-07-26
+1,Liverpool,6.0,Kylian Mbappe,0.14285714285714285,2020-07-26
+2,Barcelona,6.0,Kylian Mbappe,0.14285714285714285,2020-07-26
+3,Chelsea,14.0,Kylian Mbappe,0.06666666666666667,2020-07-26
+4,Man City,9.0,Kylian Mbappe,0.1,2020-07-26
+5,Juventus,11.0,Kylian Mbappe,0.08333333333333333,2020-07-26
+6,Man Utd,9.0,Kylian Mbappe,0.1,2020-07-26
+7,Bayern Munich,150.0,Kylian Mbappe,0.006622516556291391,2020-07-26
+0,Any French club,3.0,David Luiz,0.25,2020-07-26
+1,Any Portuguese club,3.0,David Luiz,0.25,2020-07-26
+2,Any Spanish club,12.0,David Luiz,0.07692307692307693,2020-07-26
+3,Any MLS club,12.0,David Luiz,0.07692307692307693,2020-07-26
+4,Any German club,12.0,David Luiz,0.07692307692307693,2020-07-26
+5,Newcastle,12.0,David Luiz,0.07692307692307693,2020-07-26
+6,Any Italian club,12.0,David Luiz,0.07692307692307693,2020-07-26
+7,Any South American club,12.0,David Luiz,0.07692307692307693,2020-07-26
+8,Everton,25.0,David Luiz,0.038461538461538464,2020-07-26
+9,Wolves,25.0,David Luiz,0.038461538461538464,2020-07-26
+10,Tottenham,25.0,David Luiz,0.038461538461538464,2020-07-26
+11,Man Utd,25.0,David Luiz,0.038461538461538464,2020-07-26
+12,Leicester,25.0,David Luiz,0.038461538461538464,2020-07-26
+0,Liverpool,0.25,Thiago Alcantara,0.8,2020-07-26
+1,Man City,4.0,Thiago Alcantara,0.2,2020-07-26
+2,Barcelona,9.0,Thiago Alcantara,0.1,2020-07-26
+3,Chelsea,22.0,Thiago Alcantara,0.043478260869565216,2020-07-26
+4,Juventus,25.0,Thiago Alcantara,0.038461538461538464,2020-07-26
+5,Inter,35.0,Thiago Alcantara,0.027777777777777776,2020-07-26
+6,Real Madrid,35.0,Thiago Alcantara,0.027777777777777776,2020-07-26
+0,Leicester,4.0,Leon Bailey,0.2,2020-07-26
+1,AC Milan,5.0,Leon Bailey,0.16666666666666666,2020-07-26
+2,Arsenal,4.0,Leon Bailey,0.2,2020-07-26
+3,Everton,7.0,Leon Bailey,0.125,2020-07-26
+4,Man Utd,1.4,Leon Bailey,0.4166666666666667,2020-07-26
+5,Chelsea,2.5,Leon Bailey,0.2857142857142857,2020-07-26
+6,Tottenham,7.0,Leon Bailey,0.125,2020-07-26
+0,Not to sign or agree a contract with any other club,1.25,Saul Niguez,0.4444444444444444,2020-07-26
+1,Man Utd,1.5,Saul Niguez,0.4,2020-07-26
+2,Man City,4.5,Saul Niguez,0.18181818181818182,2020-07-26
+3,Bayern Munich,11.0,Saul Niguez,0.08333333333333333,2020-07-26
+4,PSG,14.0,Saul Niguez,0.06666666666666667,2020-07-26
+5,Chelsea,16.0,Saul Niguez,0.058823529411764705,2020-07-26
+6,Juventus,25.0,Saul Niguez,0.038461538461538464,2020-07-26
+7,Barcelona,25.0,Saul Niguez,0.038461538461538464,2020-07-26
+8,Tottenham,25.0,Saul Niguez,0.038461538461538464,2020-07-26
+9,Inter Milan,33.0,Saul Niguez,0.029411764705882353,2020-07-26
+10,Arsenal,20.0,Saul Niguez,0.047619047619047616,2020-07-26
+11,Liverpool,33.0,Saul Niguez,0.029411764705882353,2020-07-26
+12,Real Madrid,33.0,Saul Niguez,0.029411764705882353,2020-07-26
+13,AC Milan,50.0,Saul Niguez,0.0196078431372549,2020-07-26
+0,Bayern Munich,2.25,Dayot Upamecano,0.3076923076923077,2020-07-26
+1,Arsenal,2.0,Dayot Upamecano,0.3333333333333333,2020-07-26
+2,Any Spanish club,6.0,Dayot Upamecano,0.14285714285714285,2020-07-26
+3,Man Utd,3.0,Dayot Upamecano,0.25,2020-07-26
+4,Man City,5.0,Dayot Upamecano,0.16666666666666666,2020-07-26
+5,Liverpool,12.0,Dayot Upamecano,0.07692307692307693,2020-07-26
+6,Any French club,12.0,Dayot Upamecano,0.07692307692307693,2020-07-26
+7,Any Italian club,12.0,Dayot Upamecano,0.07692307692307693,2020-07-26
+8,Chelsea,12.0,Dayot Upamecano,0.07692307692307693,2020-07-26
+9,Real Madrid,14.0,Dayot Upamecano,0.06666666666666667,2020-07-26
+10,Tottenham,20.0,Dayot Upamecano,0.047619047619047616,2020-07-26
+11,Newcastle,20.0,Dayot Upamecano,0.047619047619047616,2020-07-26
+12,Borussia Dortmund,25.0,Dayot Upamecano,0.038461538461538464,2020-07-26
+0,Chelsea,0.6666666666666666,Declan Rice,0.6000000000000001,2020-07-26
+1,Man Utd,4.0,Declan Rice,0.2,2020-07-26
+2,Man City,8.0,Declan Rice,0.1111111111111111,2020-07-26
+3,Arsenal,12.0,Declan Rice,0.07692307692307693,2020-07-26
+4,Tottenham,12.0,Declan Rice,0.07692307692307693,2020-07-26
+5,Liverpool,16.0,Declan Rice,0.058823529411764705,2020-07-26
+0,Man Utd,0.3333333333333333,Donny Van De Beek,0.75,2020-07-26
+1,Not to sign or agree a contract with any other club,2.5,Donny Van De Beek,0.2857142857142857,2020-07-26
+2,Real Madrid,4.0,Donny Van De Beek,0.2,2020-07-26
+3,Any German club,12.0,Donny Van De Beek,0.07692307692307693,2020-07-26
+4,Any French club,12.0,Donny Van De Beek,0.07692307692307693,2020-07-26
+5,Any Italian club,12.0,Donny Van De Beek,0.07692307692307693,2020-07-26
+6,Everton,12.0,Donny Van De Beek,0.07692307692307693,2020-07-26
+7,Barcelona,14.0,Donny Van De Beek,0.06666666666666667,2020-07-26
+8,Inter Milan,20.0,Donny Van De Beek,0.047619047619047616,2020-07-26
+9,Tottenham,14.0,Donny Van De Beek,0.06666666666666667,2020-07-26
+10,Newcastle,10.0,Donny Van De Beek,0.09090909090909091,2020-07-26
+11,Chelsea,20.0,Donny Van De Beek,0.047619047619047616,2020-07-26
+12,AC Milan,25.0,Donny Van De Beek,0.038461538461538464,2020-07-26
+13,Arsenal,16.0,Donny Van De Beek,0.058823529411764705,2020-07-26
+14,Bayern Munich,25.0,Donny Van De Beek,0.038461538461538464,2020-07-26
+15,Juventus,33.0,Donny Van De Beek,0.029411764705882353,2020-07-26
+16,Man City,33.0,Donny Van De Beek,0.029411764705882353,2020-07-26
+17,Borussia Dortmund,33.0,Donny Van De Beek,0.029411764705882353,2020-07-26
+18,Atletico Madrid,50.0,Donny Van De Beek,0.0196078431372549,2020-07-26
+19,Liverpool,50.0,Donny Van De Beek,0.0196078431372549,2020-07-26
+0,Atletico Madrid,1.5,Edinson Cavani,0.4,2020-07-26
+1,Leeds,2.75,Edinson Cavani,0.26666666666666666,2020-07-26
+2,Roma,4.0,Edinson Cavani,0.2,2020-07-26
+3,Barcelona,8.0,Edinson Cavani,0.1111111111111111,2020-07-26
+4,AC Milan,9.0,Edinson Cavani,0.1,2020-07-26
+5,Inter,12.0,Edinson Cavani,0.07692307692307693,2020-07-26
+6,Liverpool,16.0,Edinson Cavani,0.058823529411764705,2020-07-26
+7,Man Utd,10.0,Edinson Cavani,0.09090909090909091,2020-07-26
+8,Chelsea,12.0,Edinson Cavani,0.07692307692307693,2020-07-26
+9,Tottenham,20.0,Edinson Cavani,0.047619047619047616,2020-07-26
+10,Arsenal,20.0,Edinson Cavani,0.047619047619047616,2020-07-26
+0,Not to sign or agree a contract with any other club,2.0,Gareth Bale,0.3333333333333333,2020-07-26
+1,Newcastle,3.0,Gareth Bale,0.25,2020-07-26
+2,Any Italian club,6.0,Gareth Bale,0.14285714285714285,2020-07-26
+3,Any MLS club,4.5,Gareth Bale,0.18181818181818182,2020-07-26
+4,Any German club,10.0,Gareth Bale,0.09090909090909091,2020-07-26
+5,Tottenham,3.0,Gareth Bale,0.25,2020-07-26
+6,Man Utd,2.5,Gareth Bale,0.2857142857142857,2020-07-26
+7,Juventus,12.0,Gareth Bale,0.07692307692307693,2020-07-26
+8,Inter Milan,12.0,Gareth Bale,0.07692307692307693,2020-07-26
+9,Paris Saint-Germain,8.0,Gareth Bale,0.1111111111111111,2020-07-26
+10,Any Chinese Club,10.0,Gareth Bale,0.09090909090909091,2020-07-26
+11,AC Milan,20.0,Gareth Bale,0.047619047619047616,2020-07-26
+12,Chelsea,6.5,Gareth Bale,0.13333333333333333,2020-07-26
+13,Bayern Munich,5.0,Gareth Bale,0.16666666666666666,2020-07-26
+14,Arsenal,14.0,Gareth Bale,0.06666666666666667,2020-07-26
+15,Man City,5.0,Gareth Bale,0.16666666666666666,2020-07-26
+16,Bor Dortmund,33.0,Gareth Bale,0.029411764705882353,2020-07-26
+17,Southampton,40.0,Gareth Bale,0.024390243902439025,2020-07-26
+18,Liverpool,9.0,Gareth Bale,0.1,2020-07-26
+0,Leeds,3.0,James Milner,0.25,2020-07-26
+1,Rangers,8.0,James Milner,0.1111111111111111,2020-07-26
+2,Newcastle,9.0,James Milner,0.1,2020-07-26
+0,Any Chinese Club,3.0,Mario Balotelli,0.25,2020-07-26
+1,Inter Miami,5.0,Mario Balotelli,0.16666666666666666,2020-07-26
+2,Fiorentina,5.5,Mario Balotelli,0.15384615384615385,2020-07-26
+3,Galatasaray,6.0,Mario Balotelli,0.14285714285714285,2020-07-26
+4,Boca Juniors,7.0,Mario Balotelli,0.125,2020-07-26
+5,Sampdoria,7.5,Mario Balotelli,0.11764705882352941,2020-07-26
+6,River Plate,8.5,Mario Balotelli,0.10526315789473684,2020-07-26
+7,Werder Bremen,8.5,Mario Balotelli,0.10526315789473684,2020-07-26
+8,Sassuolo,9.0,Mario Balotelli,0.1,2020-07-26
+9,Parma,9.0,Mario Balotelli,0.1,2020-07-26
+10,AC Milan,16.0,Mario Balotelli,0.058823529411764705,2020-07-26
+11,Newcastle,22.0,Mario Balotelli,0.043478260869565216,2020-07-26
+12,Inter Milan,60.0,Mario Balotelli,0.01639344262295082,2020-07-26
+13,Man City,150.0,Mario Balotelli,0.006622516556291391,2020-07-26
+0,Liverpool,0.05,Mohamed Salah,0.9523809523809523,2020-07-26
+1,Real Madrid,9.0,Mohamed Salah,0.1,2020-07-26
+2,Barcelona,14.0,Mohamed Salah,0.06666666666666667,2020-07-26
+3,Bayern Munich,16.0,Mohamed Salah,0.058823529411764705,2020-07-26
+4,Man Utd,20.0,Mohamed Salah,0.047619047619047616,2020-07-26
+5,Juventus,20.0,Mohamed Salah,0.047619047619047616,2020-07-26
+0,Any Spanish club,2.0,Pierre Emerick Aubameyang,0.3333333333333333,2020-07-26
+1,Any Italian club,4.0,Pierre Emerick Aubameyang,0.2,2020-07-26
+2,Man Utd,5.0,Pierre Emerick Aubameyang,0.16666666666666666,2020-07-26
+3,Inter,7.5,Pierre Emerick Aubameyang,0.11764705882352941,2020-07-26
+4,Any German club,8.0,Pierre Emerick Aubameyang,0.1111111111111111,2020-07-26
+5,Barcelona,2.25,Pierre Emerick Aubameyang,0.3076923076923077,2020-07-26
+6,PSG,7.0,Pierre Emerick Aubameyang,0.125,2020-07-26
+7,Real Madrid,5.0,Pierre Emerick Aubameyang,0.16666666666666666,2020-07-26
+8,Man City,6.0,Pierre Emerick Aubameyang,0.14285714285714285,2020-07-26
+9,Liverpool,10.0,Pierre Emerick Aubameyang,0.09090909090909091,2020-07-26
+10,Chelsea,12.0,Pierre Emerick Aubameyang,0.07692307692307693,2020-07-26
+11,Bayern Munich,16.0,Pierre Emerick Aubameyang,0.058823529411764705,2020-07-26
+12,Tottenham,25.0,Pierre Emerick Aubameyang,0.038461538461538464,2020-07-26
+0,Tottenham,1.5,Ryan Fraser,0.4,2020-07-26
+1,Everton,1.75,Ryan Fraser,0.36363636363636365,2020-07-26
+2,Arsenal,4.0,Ryan Fraser,0.2,2020-07-26
+3,Crystal Palace,5.0,Ryan Fraser,0.16666666666666666,2020-07-26
+4,Chelsea,14.0,Ryan Fraser,0.06666666666666667,2020-07-26
+5,West Ham,14.0,Ryan Fraser,0.06666666666666667,2020-07-26
+6,Liverpool,16.0,Ryan Fraser,0.058823529411764705,2020-07-26
+7,Newcastle,20.0,Ryan Fraser,0.047619047619047616,2020-07-26
+8,Any Scottish club,20.0,Ryan Fraser,0.047619047619047616,2020-07-26
+9,Leicester,25.0,Ryan Fraser,0.038461538461538464,2020-07-26
+10,Any French club,25.0,Ryan Fraser,0.038461538461538464,2020-07-26
+11,Any Italian club,25.0,Ryan Fraser,0.038461538461538464,2020-07-26
+12,Any German club,25.0,Ryan Fraser,0.038461538461538464,2020-07-26
+13,Any Spanish club,25.0,Ryan Fraser,0.038461538461538464,2020-07-26
+14,Man Utd,25.0,Ryan Fraser,0.038461538461538464,2020-07-26
+0,Not to sign or agree a contract with any other club,0.6153846153846154,Sadio Mane,0.6190476190476191,2020-07-26
+1,Real Madrid,2.75,Sadio Mane,0.26666666666666666,2020-07-26
+2,PSG,4.0,Sadio Mane,0.2,2020-07-26
+3,Barcelona,6.0,Sadio Mane,0.14285714285714285,2020-07-26
