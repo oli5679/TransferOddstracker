@@ -1,5 +1,4 @@
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -12,7 +11,6 @@ import lxml
 from lxml import html
 
 matplotlib.use("agg")
-sns.set_style("whitegrid")
 
 s3 = boto3.resource("s3")
 BUCKET = "transfer-scraper"
@@ -134,10 +132,10 @@ def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
     ].sort_values(by="probability", ascending=False)
     if filter_df.shape[0] > 2:
         plt.subplots(figsize=(20, 15))
-        ax = sns.barplot(data=filter_df, y=y_var, x="probability", orient="h")
+        ax = plt.barh(filter_df["probability"], filter_df[y_var])
         locs, labels = plt.xticks()
         plt.setp(labels, rotation=90)
-        ax.set_title(title, {"fontsize": 20})
+        plt.title(title, {"fontsize": 20})
         key = f"output/{filter_var}s/{filter_val}.png"
         img_data = io.BytesIO()
         plt.savefig(img_data, format="png")
@@ -154,8 +152,8 @@ def plot_most_likely(df, n):
     )
     most_likely["transfer"] = most_likely.player + " - " + most_likely["destination"]
     plt.subplots(figsize=(20, 15))
-    ax = sns.barplot(data=most_likely, y="transfer", x="probability", orient="h")
-    ax.set_title(f"{n} most likely Transfers \n", {"fontsize": 20})
+    ax = plt.barh(most_likely["probability"], most_likely["transfer"])
+    plt.title(f"{n} most likely Transfers \n", {"fontsize": 20})
     img_data = io.BytesIO()
     plt.savefig(img_data, format="png")
     plt.close()
@@ -195,8 +193,8 @@ def lambda_handler(event=None, context=None):
     print(f"event {event} context {context}")
 
     print("scraping links")
-    link_scrap = LinkScraper()
-    combined_df = link_scrap.get_and_parse_all_links()
+    link_scrap = OddcheckerTransferScraper()
+    combined_df = link_scrap.get_all_transfer_probs()
 
     print("making charts")
     make_charts(combined_df)
