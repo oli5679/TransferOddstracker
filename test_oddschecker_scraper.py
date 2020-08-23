@@ -4,7 +4,13 @@ from moto import mock_s3
 import boto3
 import gzip
 
-ODDS_CONVERSION_TESTS = [("1/4", 0.80), ("1/3", 0.75), ("9/1", 0.1)]
+ODDS_CONVERSION_TESTS = [
+    ("1/4", 0.80),
+    ("1/3", 0.75),
+    ("9/1", 0.1),
+    ("9", 0.1),
+    ("1", 0.5),
+]
 
 
 @pytest.fixture

@@ -4,14 +4,13 @@ import matplotlib
 import numpy as np
 from datetime import datetime
 import boto3
-import s3fs
 import io
 import requests
 import lxml
 from lxml import html
 
 matplotlib.use("agg")
-
+plt.style.use("seaborn")
 s3 = boto3.resource("s3")
 BUCKET = "transfer-scraper"
 
@@ -40,7 +39,7 @@ def parse_odds(odds_val):
         return int(denom) / (int(denom) + int(num))
     else:
         try:
-            return float(odds_str)
+            return 1 / (float(odds_str) + 1)
         except:
             return np.nan
 
@@ -126,13 +125,13 @@ class OddcheckerTransferScraper:
         return long_df
 
 
-def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
+def make_bar_chart(df, filter_var, y_var, filter_val, title):
     filter_df = df.loc[
         (df[filter_var] == filter_val) & (df.probability > 0)
-    ].sort_values(by="probability", ascending=False)
+    ].sort_values(by="probability", ascending=True)
     if filter_df.shape[0] > 2:
         plt.subplots(figsize=(20, 15))
-        ax = plt.barh(filter_df["probability"], filter_df[y_var])
+        ax = plt.barh(filter_df[y_var], filter_df["probability"])
         locs, labels = plt.xticks()
         plt.setp(labels, rotation=90)
         plt.title(title, {"fontsize": 20})
@@ -147,12 +146,12 @@ def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
 def plot_most_likely(df, n):
     most_likely = (
         df.loc[~df.destination.str.contains("To Stay|To Leave|Any|Not to sign")]
-        .sort_values(by="probability", ascending=False)
-        .head(n)
+        .sort_values(by="probability", ascending=True)
+        .tail(n)
     )
     most_likely["transfer"] = most_likely.player + " - " + most_likely["destination"]
     plt.subplots(figsize=(20, 15))
-    ax = plt.barh(most_likely["probability"], most_likely["transfer"])
+    ax = plt.barh(most_likely["transfer"], most_likely["probability"],)
     plt.title(f"{n} most likely Transfers \n", {"fontsize": 20})
     img_data = io.BytesIO()
     plt.savefig(img_data, format="png")
@@ -198,7 +197,9 @@ def lambda_handler(event=None, context=None):
 
     print("making charts")
     make_charts(combined_df)
-    combined_df.to_csv(f"s3://{BUCKET}/data/{datetime.now().date()}.csv")
+    csv_buffer = io.StringIO()
+    key = f"data/{datetime.now().date()}.csv"
+    s3.Object(BUCKET, key).put(Body=csv_buffer.getvalue())
     print("finished")
     return "success"
 
