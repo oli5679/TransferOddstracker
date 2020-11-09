@@ -24,10 +24,9 @@ class LinkScraper:
     def __init__(self, headless):
         options = FF_Options()
 
-        if headless == 'headless':
+        if headless == "headless":
             options.add_argument("--headless")
-        self.driver = webdriver.Firefox(
-            options=options)
+        self.driver = webdriver.Firefox(options=options)
         self.transfer_df = pd.DataFrame()
 
     def _parse_odds(self, odds_val):
@@ -61,8 +60,7 @@ class LinkScraper:
         # Transpose - clubs along axis
         clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
         # Calculate lowest odds - most likely
-        long_df = pd.DataFrame(clean_df.applymap(
-            self._parse_odds).min()).reset_index()
+        long_df = pd.DataFrame(clean_df.applymap(self._parse_odds).min()).reset_index()
         # Add in column names, including player name
         long_df.columns = ["destination", "odds"]
         long_df["player"] = link.split("/")[-2].replace("-", " ").title()
@@ -77,10 +75,9 @@ class LinkScraper:
         self._wait_for_element(id="outrights")
         # Find the transfer rumours
         markets = self.driver.find_element_by_xpath(
-            '/html/body/div[1]/div[2]/div/div/div/div/div/div[1]/section[2]/div/div/ul[4]'
+            "/html/body/div[1]/div[2]/div/div/div/div/div/div[1]/section[2]/div/div/ul[4]"
         ).find_elements_by_tag_name("li")
-        links = [m.find_element_by_tag_name(
-            "a").get_attribute("href") for m in markets]
+        links = [m.find_element_by_tag_name("a").get_attribute("href") for m in markets]
         self.transfer_links = [
             l for l in links if "club-after-summer-transfer-window" in l
         ]
@@ -95,7 +92,7 @@ class LinkScraper:
                 try:
                     self._parse_link(l)
                 except Exception as e:
-                    logging.info('parsing failed')
+                    logging.info("parsing failed")
                     logging.info(e)
 
             return self.transfer_df
@@ -123,16 +120,13 @@ def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
 
 def plot_most_likely(df, n):
     most_likely = (
-        df.loc[~df.destination.str.contains(
-            "To Stay|To Leave|Any|Not to sign")]
+        df.loc[~df.destination.str.contains("To Stay|To Leave|Any|Not to sign")]
         .sort_values(by="probability", ascending=False)
         .head(n)
     )
-    most_likely["transfer"] = most_likely.player + \
-        " - " + most_likely["destination"]
+    most_likely["transfer"] = most_likely.player + " - " + most_likely["destination"]
     plt.subplots(figsize=(20, 15))
-    ax = sns.barplot(data=most_likely, y="transfer",
-                     x="probability", orient="h")
+    ax = sns.barplot(data=most_likely, y="transfer", x="probability", orient="h")
     ax.set_title(f"{n} most likely Transfers \n", {"fontsize": 20})
     plt.savefig(f"output/{n} most likely overall.png")
 
@@ -147,8 +141,7 @@ def make_charts(df):
     os.mkdir("output/players")
     os.mkdir("output/destinations")
     for dest in df.loc[
-        ~df.destination.str.contains(
-            "To Stay|To Leave|Any|Not to sign"), "destination"
+        ~df.destination.str.contains("To Stay|To Leave|Any|Not to sign"), "destination"
     ].unique():
         make_bar_chart(
             df=df,
@@ -171,9 +164,13 @@ def make_charts(df):
 
 
 def main(headless, log_mode):
-    if log_mode == 'file':
-        logging.basicConfig(filename='app.log', filemode='w',
-                            format='%(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+    if log_mode == "file":
+        logging.basicConfig(
+            filename="app.log",
+            filemode="w",
+            format="%(name)s - %(levelname)s - %(message)s",
+            level=logging.INFO,
+        )
     else:
         logging.basicConfig(level=logging.INFO)
     sns.set_style("whitegrid")
@@ -188,4 +185,4 @@ def main(headless, log_mode):
 
 
 if __name__ == "__main__":
-    main(headless=False, log_mode='print')
+    main(headless=False, log_mode="print")
