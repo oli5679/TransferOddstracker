@@ -1,17 +1,32 @@
 # TransferOddstracker
 
-Basic scraper for oddschecker transfer specials - calculates the probability of players moving in summer 2019 window.
+Basic scraper for oddschecker transfer specials.
+
+Calculates the probability of players moving in transfer window based on odds on 'oddschecker' portal and saves to AWS s3.
+
+Outputs saved here https://transfer-scraper.s3.eu-west-2.amazonaws.com/output/30+most+likely+overall.png
 
 ## Getting Started
 
 git clone https://github.com/oli5679/TransferOddstracker/
 
-### Installing
+### Local setup
 
-https://www.anaconda.com/distribution/
-https://anaconda.org/conda-forge/selenium
-https://anaconda.org/chen/firefox
+pip install -r requirements.txt
 
-## Running 
+Configure AWS CLI https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html 
+
+Create target S3 bucket and update 'target bucket'
+
+## Running locally
 
 python3 rumour_scraper.py
+
+## Running on AWS
+
+This can be deployed as lambda function on AWS. Checkout Klayers as a simple way to add Python packages to Lambda function.
+
+https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html
+
+https://github.com/keithrozario/Klayers
+

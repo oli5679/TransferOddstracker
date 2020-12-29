@@ -1,58 +1,120 @@
-from selenium import webdriver
-from selenium.webdriver.firefox.options import Options as FF_Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import pandas as pd
-from time import sleep
-import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib
 import numpy as np
 from datetime import datetime
-from IPython.display import clear_output
-import shutil
-import os
-import click
-import logging
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from retry import retry
-from timeout_decorator import timeout, TimeoutError
+import boto3
+import io
+import requests
+import lxml
+from lxml import html
 
 
-class LinkScraper:
-    def __init__(self, headless):
-        options = FF_Options()
+matplotlib.use("agg")
+plt.style.use("seaborn")
+s3 = boto3.resource("s3")
+BUCKET = "transfer-scraper"
 
-        if headless == "headless":
-            options.add_argument("--headless")
-        self.driver = webdriver.Firefox(options=options)
-        self.transfer_df = pd.DataFrame()
+MARKETS_X_PATH = (
+    '//*[@id="outrights"]'
+)
 
-    def _parse_odds(self, odds_val):
-        odds_str = str(odds_val)
-        if "/" in odds_str:
-            num, denom = odds_str.split("/")
-            return int(num) / int(denom)
-        else:
+"""
+Lambda function to get transfer rumours from oddscheckers, saving to s3 (data and charts)
+"""
+
+
+def parse_odds(odds_val):
+    """
+    Turns odds string into numeric odds
+
+    Args:
+        odds_val (str): string with odds
+
+    Returns:
+        prob (number): probability of transfer (number)
+    """
+    odds_str = str(odds_val)
+    if "/" in odds_str:
+        num, denom = odds_str.split("/")
+        return int(denom) / (int(denom) + int(num))
+    else:
+        try:
+            return 1 / (float(odds_str) + 1)
+        except:
+            return np.nan
+
+
+class OddcheckerTransferScraper:
+    """
+    Client for getting latest transfer rumours from oddschecker.com
+
+    Methods:
+        get_all_transfer_probs: 
+            returns implied probabilities for all transfers
+    """
+
+    def __init__(self):
+        self.base = "https://www.oddschecker.com"
+        self.transfer_data = pd.DataFrame()
+
+    def get_all_transfer_probs(self):
+        """
+        Gets all next club transfer odds
+
+        Returns:
+            transfer_data (df): dataframe with transfer probs
+        """
+        self._get_links()
+        for i, l in enumerate(self.transfer_links):
+            print(f"{l} \n {i+1}/{len(self.transfer_links)} \n")
             try:
-                return float(odds_str)
-            except:
-                return np.nan
+                transfer_probs = self._parse_link(l)
+                self.transfer_data = self.transfer_data.append(
+                    transfer_probs, sort=False
+                )
+            except Exception as e:
+                print("parsing failed")
+                print(e)
+        return self.transfer_data
 
-    def _wait_for_element(self, id, pause_time=60):
-        WebDriverWait(self.driver, pause_time).until(
-            EC.presence_of_element_located((By.ID, id))
-        )
+    def _get_markets(self):
+        """
+        Gets all links from player special page 'markets' table with 'club-after' or 'to-sign-for' in link
+       
+        Returns:
+            transfer_links (list): list of transfer market pages
+        """
+        url = f"{self.base}/football/player-specials"
+        response = requests.get(url)
+        tree = lxml.html.fromstring(response.content)
+        # Find the transfer rumours
+        markets = tree.xpath(MARKETS_X_PATH)
+        return markets
+    
+    def _get_links(self):
+        self.markets = self._get_markets()
+    
+        links = [self.base + l[2] for l in self.markets[0].iterlinks()]
+        self.transfer_links = [
+            l
+            for l in links
+            if ("transfer-window" in l or "to-sign-for" in l) and '?' not in l
+        ]
+        assert len(self.transfer_links) > 0
+        return self.transfer_links
 
-    @retry(TimeoutError, tries=3)
-    @timeout(30)
     def _parse_link(self, link):
-        self.driver.get(link)
-        sleep(1)
+        """
+        Gets and transforms odds from page
 
-        self._wait_for_element(id="t1")
-        tables = pd.read_html(self.driver.page_source)
+        Args:
+            link (string): page to get odds from
+
+        Returns
+            prob_df (dataframe): transfer odds for player
+        """
+        tables = pd.read_html(link)
         # Odds table seems to be last table on page
         odds_df = tables[-1]
         # Remove crazy long column names
@@ -60,86 +122,55 @@ class LinkScraper:
         # Transpose - clubs along axis
         clean_df = odds_df.T.rename(columns=odds_df.T.iloc[0])
         # Calculate lowest odds - most likely
-        long_df = pd.DataFrame(clean_df.applymap(self._parse_odds).min()).reset_index()
+        long_df = pd.DataFrame(clean_df.applymap(parse_odds).min()).reset_index()
         # Add in column names, including player name
-        long_df.columns = ["destination", "odds"]
+        long_df.columns = ["destination", "probability"]
         long_df["player"] = link.split("/")[-2].replace("-", " ").title()
         # add probability and date
-        long_df["probability"] = 1 / (1 + long_df["odds"])
         long_df["date"] = datetime.now().date()
-        self.transfer_df = self.transfer_df.append(long_df, sort=False)
-
-    def _get_links(self):
-        url = "https://www.oddschecker.com/football/player-specials"
-        self.driver.get(url)
-        self._wait_for_element(id="outrights")
-        # Find the transfer rumours
-        markets = self.driver.find_element_by_xpath(
-            "/html/body/div[1]/div[2]/div/div/div/div/div/div[1]/section[2]/div/div/ul[4]"
-        ).find_elements_by_tag_name("li")
-        links = [m.find_element_by_tag_name("a").get_attribute("href") for m in markets]
-        self.transfer_links = [
-            l for l in links if "club-after-summer-transfer-window" in l
-        ]
-        assert len(self.transfer_links) > 0
-
-    def get_and_parse_all_links(self):
-        try:
-            self._get_links()
-            for i, l in enumerate(self.transfer_links):
-                clear_output()
-                logging.info(f"{l} \n {i+1}/{len(self.transfer_links)} \n")
-                try:
-                    self._parse_link(l)
-                except Exception as e:
-                    logging.info("parsing failed")
-                    logging.info(e)
-
-            return self.transfer_df
-        except Exception as e:
-            raise e
-        finally:
-            self.driver.quit()
+        return long_df
 
 
-def make_bar_chart(df, filter_var, y_var, filter_val, title, show_flag=False):
+def make_bar_chart(df, filter_var, y_var, filter_val, title):
     filter_df = df.loc[
         (df[filter_var] == filter_val) & (df.probability > 0)
-    ].sort_values(by="probability", ascending=False)
+    ].sort_values(by="probability", ascending=True)
     if filter_df.shape[0] > 2:
         plt.subplots(figsize=(20, 15))
-        ax = sns.barplot(data=filter_df, y=y_var, x="probability", orient="h")
+        ax = plt.barh(filter_df[y_var], filter_df["probability"])
         locs, labels = plt.xticks()
         plt.setp(labels, rotation=90)
-        ax.set_title(title, {"fontsize": 20})
-        plt.savefig(f"output/{filter_var}s/{filter_val}.png")
-        if show_flag:
-            plt.show()
+        plt.title(title, {"fontsize": 20})
+        key = f"output/{filter_var}s/{filter_val}.png"
+        img_data = io.BytesIO()
+        plt.savefig(img_data, format="png")
+        img_data.seek(0)
+        s3.Bucket(BUCKET).put_object(Body=img_data, ContentType="image/png", Key=key)
         plt.close()
 
 
 def plot_most_likely(df, n):
     most_likely = (
         df.loc[~df.destination.str.contains("To Stay|To Leave|Any|Not to sign")]
-        .sort_values(by="probability", ascending=False)
-        .head(n)
+        .sort_values(by="probability", ascending=True)
+        .tail(n)
     )
     most_likely["transfer"] = most_likely.player + " - " + most_likely["destination"]
     plt.subplots(figsize=(20, 15))
-    ax = sns.barplot(data=most_likely, y="transfer", x="probability", orient="h")
-    ax.set_title(f"{n} most likely Transfers \n", {"fontsize": 20})
-    plt.savefig(f"output/{n} most likely overall.png")
+    ax = plt.barh(most_likely["transfer"], most_likely["probability"],)
+    plt.title(f"{n} most likely Transfers \n", {"fontsize": 20})
+    img_data = io.BytesIO()
+    plt.savefig(img_data, format="png")
+    plt.close()
+    img_data.seek(0)
+    key = f"output/{n} most likely overall.png"
+    s3.Bucket(BUCKET).put_object(Body=img_data, ContentType="image/png", Key=key)
 
 
 def make_charts(df):
-    try:
-        shutil.rmtree("output/players")
-        shutil.rmtree("output/destinations")
-        logging.info("previous output removed")
-    except FileNotFoundError:
-        logging.info("no previous output directories")
-    os.mkdir("output/players")
-    os.mkdir("output/destinations")
+    """
+    Makes bar charts and saves to s3
+    """
     for dest in df.loc[
         ~df.destination.str.contains("To Stay|To Leave|Any|Not to sign"), "destination"
     ].unique():
@@ -163,26 +194,21 @@ def make_charts(df):
     plot_most_likely(df, 30)
 
 
-def main(headless, log_mode):
-    if log_mode == "file":
-        logging.basicConfig(
-            filename="app.log",
-            filemode="w",
-            format="%(name)s - %(levelname)s - %(message)s",
-            level=logging.INFO,
-        )
-    else:
-        logging.basicConfig(level=logging.INFO)
-    sns.set_style("whitegrid")
+def lambda_handler(event=None, context=None):
+    print(f"event {event} context {context}")
+    print('testing123')
+    print("scraping links")
+    link_scrap = OddcheckerTransferScraper()
+    combined_df = link_scrap.get_all_transfer_probs()
 
-    logging.info("started scraping links")
-    link_scrap = LinkScraper(headless=headless)
-    combined_df = link_scrap.get_and_parse_all_links()
-    logging.info("started making charts")
+    print("making charts")
     make_charts(combined_df)
-    combined_df.to_csv(f"output/data/{datetime.now().date()}.csv")
-    logging.info("finished")
+    csv_buffer = io.StringIO()
+    key = f"data/{datetime.now().date()}.csv"
+    s3.Object(BUCKET, key).put(Body=csv_buffer.getvalue())
+    print("finished")
+    return "success"
 
 
 if __name__ == "__main__":
-    main(headless=False, log_mode="print")
+    lambda_handler()
