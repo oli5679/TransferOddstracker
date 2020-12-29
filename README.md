@@ -6,9 +6,7 @@ Calculates the probability of players moving in transfer window based on odds on
 
 Outputs saved here https://transfer-scraper.s3.eu-west-2.amazonaws.com/output/30+most+likely+overall.png
 
-## Getting Started
-
-git clone https://github.com/oli5679/TransferOddstracker/
+See results saved [here](https://transfer-scraper.s3.eu-west-2.amazonaws.com/output/30+most+likely+overall.png?fbclid=IwAR32gVNXP3E98JHg03I70CDNcYPXg3ju1x5EbaS8LFoCx8yk8-_OTynvyMY)
 
 ### Local setup
 
@@ -16,11 +14,10 @@ pip install -r requirements.txt
 
 Configure AWS CLI https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html 
 
-Create target S3 bucket and update 'target bucket'
-
 ## Running locally
 
-python3 rumour_scraper.py
+pytest .
+python3 oddschecker_scraper.py
 
 ## Running on AWS
 
@@ -29,4 +26,8 @@ This can be deployed as lambda function on AWS. Checkout Klayers as a simple way
 https://docs.aws.amazon.com/lambda/latest/dg/lambda-python.html
 
 https://github.com/keithrozario/Klayers
+
+## Lambda update
+
+    bash deploy.sh
 

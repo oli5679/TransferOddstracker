@@ -15,9 +15,7 @@ plt.style.use("seaborn")
 s3 = boto3.resource("s3")
 BUCKET = "transfer-scraper"
 
-MARKETS_X_PATH = (
-    '//*[@id="outrights"]'
-)
+MARKETS_X_PATH = '//*[@id="outrights"]'
 
 """
 Lambda function to get transfer rumours from oddscheckers, saving to s3 (data and charts)
@@ -91,15 +89,15 @@ class OddcheckerTransferScraper:
         # Find the transfer rumours
         markets = tree.xpath(MARKETS_X_PATH)
         return markets
-    
+
     def _get_links(self):
         self.markets = self._get_markets()
-    
+
         links = [self.base + l[2] for l in self.markets[0].iterlinks()]
         self.transfer_links = [
             l
             for l in links
-            if ("transfer-window" in l or "to-sign-for" in l) and '?' not in l
+            if ("transfer-window" in l or "to-sign-for" in l) and "?" not in l
         ]
         assert len(self.transfer_links) > 0
         return self.transfer_links
@@ -196,11 +194,9 @@ def make_charts(df):
 
 def lambda_handler(event=None, context=None):
     print(f"event {event} context {context}")
-    print('testing123')
     print("scraping links")
     link_scrap = OddcheckerTransferScraper()
     combined_df = link_scrap.get_all_transfer_probs()
-
     print("making charts")
     make_charts(combined_df)
     csv_buffer = io.StringIO()
